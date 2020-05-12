@@ -1,0 +1,32 @@
+#include<iostream>
+#include<conio.h>
+
+using namespace std;
+
+void selection(int a[], int men,int aux){
+	
+	for (int i=0;i<5;i++){				//creamos un for de tamanio del arreglo
+		men=i;							//suponemos que la primera posicion es el menor
+		for (int j=i+1; j<5; j++){		//este for recorre el resto del arreglo 
+			if(a[j]<a[men]){			//si encuentra un numero menor
+				men=j;					//se actualiza la variable "men"
+			}							//en este se encuentra al menor
+		}
+		aux=a[i];						//aca se hace los cambios correspondientes
+		a[i]=a[men];
+		a[men]=aux;
+	
+	}
+	
+}
+
+int main(){
+	int a[]={2,4,1,3,5};				//declaro el arreglo
+	int men,aux;						//declaro las variables
+	selection(a,men,aux);				//llamo a la funcion
+	for(int i=0;i<5;i++){				//este for imprime el arreglo ya ordenado
+		cout<<a[i]<<" ";
+	}
+getch();	
+return 0;
+}

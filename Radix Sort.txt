@@ -1,0 +1,70 @@
+#include<iostream>
+#include<conio.h>
+
+using namespace std;
+  
+// se crea una funcion para obtener el valor máximo 
+int vmax(int num[], int n) 
+{ 
+    int max = num[0]; 
+    for (int i = 1; i < n; i++) 
+        if (num[i] > max) 
+            max = num[i]; 
+    return max; 
+} 
+  
+// Una función para contar contando num[] según el dígito representado por la variable "exp".
+void contar(int num[], int n, int exp) 
+{ 
+    int a[n]; // array de salida
+    int i, con[10] = {0}; 
+  
+ // Almacenar recuento de ocurrencias en con[] 
+    for (i = 0; i < n; i++) 
+        con[ (num[i]/exp)%10 ]++; 
+  
+// Cambiar el recuento [i] para que el recuento [i] ahora contenga posición de este dígito en la salida [] 
+    for (i = 1; i < 10; i++) 
+        con[i] += con[i - 1]; 
+  
+// Construye la salida
+    for (i = n - 1; i >= 0; i--) 
+    { 
+        a[con[ (num[i]/exp)%10 ] - 1] = num[i]; 
+        con[ (num[i]/exp)%10 ]--; 
+    } 
+  
+// Copie el array de salida en num[], para que num[] ahora tenga números ordenados según el dígito actual
+    for (i = 0; i < n; i++) 
+        num[i] = a[i]; 
+} 
+  
+// La función principal para eso ordena anum[] de tamaño "n" usando Clasificación de radix
+void radix(int num[], int n) 
+{ 
+// Encuentra el número máximo para saber el número de dígitos
+    int m = vmax(num, n); 
+  
+// Realiza el recuento de cada dígito, en vez de pasar el número de dígito, se pasa la variable "exp"que seria 10 ^ i donde i es el número de dígito actual 
+    for (int exp = 1; m/exp > 0; exp *= 10) 
+        contar(num, n, exp); 
+} 
+  
+// se crea una funcion para imprimir el arreglo
+void mostrar(int num[], int n) 
+{ 
+    for (int i = 0; i < n; i++) 
+        cout << num[i] << " "; 
+} 
+  
+
+int main() 
+{ 
+    int num[] = {3, 5, 1, 4, 6,2}; 
+    int n = sizeof(num)/sizeof(num[0]); 
+    radix(num, n); 
+    mostrar(num, n); 
+    
+
+    return 0; 
+} 

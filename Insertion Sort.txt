@@ -1,0 +1,33 @@
+//INSERTIONSORT
+
+#include<iostream>
+#include<conio.h>
+
+using namespace std;
+
+void insertion(int a[], int p,int aux){
+	
+	for (int i=0;i<5;i++){				//hago un for del tamaño del arregolo, es decir, 5
+		p=i;							//"p" almacena la posicion en la que vamos
+		aux=a[i];						//"aux" almacena el numero en el que vamos
+		
+		while((p>0) && (a[p-1]>aux)){ 	//"p" debe ser mayor a 0 para poder compararlo con el de su izquierda, y si ese numero es menor que el de su izquierda se ejecuta la condicion
+			a[p]=a[p-1];				//aqui hacemos el intercambio de los numeros
+			p--;						//aqui va bajando para comparar con el de su izquierda
+		}
+		a[p]=aux;						//aqui se va actualizando el bucle
+	}
+	
+	
+}
+
+int main(){
+	int a[]={2,4,1,3,5};				//declaro el arreglo
+	int p,aux;						//declaro las variables que voy a usar
+	insertion(a,p,aux);					//llamo a la funcion
+	for(int i=0;i<5;i++){				//este for es para imprimir los datos ya ordenados
+		cout<<a[i]<<" ";
+	}
+	
+return 0;
+}

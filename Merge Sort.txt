@@ -1,0 +1,101 @@
+#include<stdlib.h> 
+#include<stdio.h> 
+#include<iostream>
+#include<conio.h>
+using namespace std;
+// Fusiona dos subarreglos de num [].
+// El primer subarreglo es num [l..m]
+// El segundo subarreglo es num [m + 1..r]
+void merge(int num[], int l, int m, int r) 
+{ 
+    int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 =  r - m; 
+  
+
+
+// se crea arreglos temporales
+    int L[n1], R[n2]; 
+  
+//se copia los datos a los arreglos temporales L [] y R [] 
+    for (i = 0; i < n1; i++) 
+        L[i] = num[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = num[m + 1+ j]; 
+  
+// unir los arreglos temporales nuevamente en num [l..r] 
+    i = 0; // indice inicial del primer subarreglo
+	j = 0; // indice inicial del segundo subarreglo
+	k = l; // indice inicial de subarreglos unidos
+    while (i < n1 && j < n2) 
+    { 
+        if (L[i] <= R[j]) 
+        { 
+            num[k] = L[i]; 
+            i++; 
+        } 
+        else
+        { 
+            num[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+  
+//se copia los elementos restantes de L [], si hay son cualquiera
+    while (i < n1) 
+    { 
+        num[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+  
+// se copia los elementos restantes de R [], si hay son cualquiera
+    while (j < n2) 
+    { 
+        num[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+  
+// l es para el indice izquierdo y r es el índice derecho del subarreglo de num que se ordenará 
+void mergeSort(int num[], int l, int r) 
+{ 
+    if (l < r) 
+    { 
+// Igual que (l + r) / 2, pero evita el desbordamiento de grandes l y h
+        int m = l+(r-l)/2; 
+  
+    // Ordenar primera y segunda mitades
+        mergeSort(num, l, m); 
+        mergeSort(num, m+1, r); 
+  
+        merge(num, l, m, r); 
+    } 
+} 
+  
+
+// se crea una uncion para imprimir el arreglo
+void mostrar(int A[], int size) 
+{ 
+    int i; 
+    for (i=0; i < size; i++) 
+        cout<<" "<< A[i]; 
+    cout<<endl; 
+} 
+  
+int main() 
+{ 
+    int num[] = {3, 5, 1, 6, 2, 4}; 
+    int num_size = sizeof(num)/sizeof(num[0]); 
+  
+    cout<<"el arreglo es : "<<endl; 
+    mostrar(num, num_size); 
+  
+    mergeSort(num, 0, num_size - 1); 
+  
+    cout<<"la matriz ordenada es: "<<endl; 
+    mostrar(num, num_size); 
+    return 0; 
+} 

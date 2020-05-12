@@ -1,0 +1,69 @@
+#include <bits/stdc++.h> 
+#include<iostream>
+#include<conio.h>
+
+using namespace std;
+  
+// se crea una funcion para intercambiar dos elementos
+void inter(int* a, int* b)  
+{  
+    int t = *a;  
+    *a = *b;  
+    *b = t;  
+}  
+  
+//Esta función toma el último elemento como eje, lugares el elemento eje en su posición correcta en orden de arreglo
+// y coloca todos los más pequeños (más pequeños que el eje)a la izquierda y todos los elementos mayores a la derecha
+int parti(int arr[], int b, int a)  
+{  
+    int e = arr[a]; // eje
+    int i = (b - 1); //indice de elemento más pequeño
+  
+    for (int j = b; j <= a - 1; j++)  
+    {  
+        // Si el elemento actual es más pequeño que el eje
+        if (arr[j] < e)  
+        {  
+            i++; //índice de incremento del elemento más pequeño
+            inter(&arr[i], &arr[j]);  
+        }  
+    }  
+    inter(&arr[i + 1], &arr[a]);  
+    return (i + 1);  
+}  
+  
+/* La función principal que implementa QuickSort
+arr -> arreglo para ordenar,
+bajo -> indice inicial,
+alto -> indice final */
+void quickSort(int arr[], int b, int a)  
+{  
+    if (b < a)  
+    {  
+       //pi es un índice de partición, arr [p] ahora en el lugar correcto 
+        int pi = parti(arr, b, a);  
+  
+      // se ordena elementos por separado, antes y después de la partición 
+        quickSort(arr, b, pi - 1);  
+        quickSort(arr, pi + 1, a);  
+    }  
+}  
+  
+//esta función  imprimir el arreglo
+void mostrar(int arr[], int tam)  
+{  
+    int i;  
+    for (i = 0; i < tam; i++)  
+        cout << arr[i] << " ";  
+    cout << endl;  
+}  
+  
+int main()  
+{  
+    int arr[] = {3, 5, 2, 4, 1, 6};  
+    int n = sizeof(arr) / sizeof(arr[0]);  
+    quickSort(arr, 0, n - 1);  
+    cout << "arreglo ordenado"<<endl;  
+    mostrar(arr, n);  
+    return 0;  
+} 

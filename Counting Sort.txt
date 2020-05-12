@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>  
+#include<string.h> 
+using namespace std;  
+#define rango 255
+  
+// se crea una funcion que ordena el conjunto de cadenas dado [] en orden alfabetico 
+void counting(char num[])  
+{  
+// el arreglo de caracteres de salida, eso habrá ordenado num  
+    char sal[strlen(num)];  
+  
+// Crear un arreglo de recuento para almacenar el recuento de inidividul,caracteres e inicializar  como 0 
+    int con[rango + 1], i;  
+    memset(con, 0, sizeof(con));  
+  
+// se crea un for que almacena el recuento de cada caracter
+    for(i = 0; num[i]; ++i)  
+        ++con[num[i]];  
+  
+// se cambia el arreglo para que ahora contenga la  posición de este caracter  
+    for (i = 1; i <= rango; ++i)  
+        con[i] += con[i-1];  
+  
+// se hace el arreglo de caracteres ya ordenados 
+    for (i = 0; num[i]; ++i)  
+    {  
+        sal[con[num[i]]-1] = num[i];  
+        --con[num[i]];  
+    }  
+  
+// se copia la el arreglo de salida a num para que num ahora contenga los caracteres ordenados 
+    for (i = 0; num[i]; ++i)  
+        num[i] = sal[i];  
+}  
+  
+int main()  
+{  
+    char num[] = "cfibdjgaeh"; 
+  
+    counting(num);  
+  
+    cout<< "la cadena ordenada es:   " << num;  
+    return 0;  
+}  
